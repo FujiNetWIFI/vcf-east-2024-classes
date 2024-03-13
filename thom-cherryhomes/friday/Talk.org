@@ -7,6 +7,12 @@ Talk Duration: 45 min max.
 Display font is Atari Regular
 #+end_note
 
+* Goals
+
+- Boot into DOS with N:
+
+- Show how to use N: device from BASIC
+
 * Booting a FujiNet N: Handler disk
 
 1. Select apps.irata.online
@@ -21,7 +27,6 @@ Display font is Atari Regular
 #+begin_src
 READY
 RUN"N:HTTP://FUJINET-TESTING.IRATA.ONLINE/BLACKJACK.BAS"
-```
 #+end_src
 
 - Press RESET to get back to READY
