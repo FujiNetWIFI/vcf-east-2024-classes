@@ -1,0 +1,8 @@
+#+title: Talk Title
+#+author: Thomas Cherryhomes
+#+email: thom.cherryhomes@gmail.com
+
+#+begin_note
+Talk Duration: 45 min max.
+Display font is Atari Regular
+#+end_note
