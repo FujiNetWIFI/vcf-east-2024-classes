@@ -1,0 +1,268 @@
+:REVEAL_PROPERTIES:
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_THEME: blood
+#+REVEAL_REVEAL_JS_VERSION: 4
+#+REVEAL_INIT_OPTIONS: width:1200, height:800, margin: 0.1, minScale:0.8, maxScale:1.0
+:END:
+
+#+TITLE: 8 bit Assembler Basics for Atari
+#+AUTHOR: Mark Fisher
+#+EMAIL: mark.j.fisher@gmail.com
+#+OPTIONS: toc:nil num:nil timestamp:nil
+
+* Atari and the 6502
+
+#+ATTR_HTML: :width 38% :align center
+[[file:images/6502-atari.png]]
+
+** 8 bit Processor & RAM/ROM
+
+#+ATTR_HTML: :width 85% :align center
+[[file:images/memory-layout-horiz.png]]
+
+#+begin_notes
++ A single accumulator for adding values
++ 2 general purpose index registers: X, Y
++ Stack pointer between $0100 and $01FF
+  + LIFO stack, init to $FF and decrements as used.
+  + Can be set using TXS and TSX
++ A single Processor Status Register with 7 flags
++ 2 bytes addressable memory giving range 64k
++ Split into blocks of 16k, BASIC becoming ROM when inserted
++ User has free access to "Page 6" at $0600
++ All Page Zero is used with Basic enabled
++ Special "Zero Page" between $00 and $FF, fewer instructions to use
+#+end_notes
+
+** The instruction execution cycle
+#+ATTR_REVEAL: :frag roll-in
++ Memory fetched at the current PC
++ It is decoded by a special Instruction Register
++ Depending on the instruction, it may require more fetches
+   + Some instructions require no further reads, so take fewer cycles
+   + Others may involve fetching memory, and interacting with the Registers
++ The PC is incremented by 1 each time, and cycle repeats.
+
+#+begin_notes
+#+end_notes
+
+* Show me some code!
+
+#+ATTR_REVEAL: :frag roll-in
+- Instructions, or mnemonics allow us to tell the MPU what to do
+  + Load: LDA, LDX, LDY read memory/values into A/X/Y
+  + Set: STA, STX, STY store them in memory
+  #+ATTR_REVEAL: :frag roll-in
+  + Add/Subtracting values: ADC, SBC
+  + Registers: CLC, SEC
+
+  #+ATTR_REVEAL: :frag roll-in
+  - The Carry is an important part of adding
+
+#+REVEAL: split
+
++ Instructions have different modes:
+  + Immediate: loads a direct value (=LDA #$01=)
+  #+ATTR_REVEAL: :frag roll-in
+  + Absolute: uses a 8/16 bit address (=LDA $1234=)
+  #+ATTR_REVEAL: :frag roll-in
+  + Indexed: Uses X and Y registers to offset the get/set (=LDA $1234,X=)
+
+* Exercise 1: Adding Numbers
+
++ OSS EASMD Assembler
++ Syntax is important!
+  + Pay attention to line numbers and spaces
+
+** Initial setup
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+
+#+ATTR_REVEAL: :data_id asm1
+#+begin_src asm
+  0100    .OPT OBJ        ; write to memory
+  0110    *=$0600         ; page 6 address
+  0200 START              ; any name will do
+#+end_src
+
+** Using the Accumulator
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+
+#+ATTR_REVEAL: :data_id asm1
+#+begin_src asm
+  0100    .OPT OBJ        ; write to memory
+  0110    *=$0600         ; page 6 address
+  0200 START              ; any name will do
+  0210    CLC             ; Always when starting to add
+  0220    LDA     #$01    ; load value 1 into A (note #)
+  0230    ADC     #$02    ; add the immediate value 2 to it
+  0240    STA     D1      ; Use a label
+  0250    BRK
+#+end_src
+
+** Finishing the program
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+
+#+ATTR_REVEAL: :data_id asm1
+#+begin_src asm
+  0100    .OPT OBJ        ; write to memory
+  0110    *=$0600         ; page 6 address
+  0200 START              ; any name will do
+  0210    CLC             ; Always when starting to add
+  0220    LDA     #$01    ; load value 1 into A (note #)
+  0230    ADC     #$02    ; add the immediate value 2 to it
+  0240    STA     D1      ; Use a label
+  0250    BRK
+  0300 D1                 ; Define the memory to save to
+  0310    .BYTE   0       ; Allocate 1 byte
+  0500    .END
+#+end_src
+
+* Saving your work
+
+#+begin_src asm
+  LIST #D2:EX1.ASM
+#+end_src
+
+* Assembling your code
+
+=ASM= will assemble your code into machine code
+
+** Bugs 🪲
+If there are errors you'll see a message like:
+
+#+ATTR_HTML: :width 85% :align center
+file:images/err-ex1.png
+
+** Success
+
+#+ATTR_HTML: :width 50% :align center
+[[file:images/asm-ex1.png]]
+
++ Output shows code we typed
++ Also shows Machine Code bytes
+  and addresses: =$0600, $0609=
+
+* Running the Code
+#+ATTR_REVEAL: :frag roll-in
++ Our code exists at $0600
++ Use in-built =BUG= command
++ Subcommands:
+  + L<ADDRESS> - List ASM at ADDRESS
+  + D<ADDRESS> - Display Memory at ADDRESS
+  + S[<ADDRESS>] - Step from ADDRESS
+  + G<ADDRESS> - Go from ADDRESS
+
+#+REVEAL: split
+file:images/bug-ex1.png
+
+** Step through the code
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+#+ATTR_REVEAL: :data_id bug1
+#+begin_src asm
+  S0600
+#+end_src
+
+** Step through the code
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+#+ATTR_REVEAL: :data_id bug1
+#+begin_src asm
+  S0600
+  0600    18           CLC
+      A=04 X=00 Y=00 P=30 S=00
+#+end_src
+
+
+** Step through the code
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+#+ATTR_REVEAL: :data_id bug1
+#+begin_src asm
+  S0600
+  0600    18           CLC
+      A=04 X=00 Y=00 P=30 S=00
+  S
+  0601    A9 01        LDA   #$01
+      A=01 X=00 Y=00 P=30 S=00
+#+end_src
+
+** Step through the code
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+#+ATTR_REVEAL: :data_id bug1
+#+begin_src asm
+  S0600
+  0600    18           CLC
+      A=04 X=00 Y=00 P=30 S=00
+  S
+  0601    A9 01        LDA   #$01
+      A=01 X=00 Y=00 P=30 S=00
+  S
+  0603    69 02        ADC   #$02
+      A=03 X=00 Y=00 P=30 S=00
+#+end_src
+
+** Step through the code
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+#+ATTR_REVEAL: :data_id bug1
+#+begin_src asm
+  S0600
+  0600    18           CLC
+      A=04 X=00 Y=00 P=30 S=00
+  S
+  0601    A9 01        LDA   #$01
+      A=01 X=00 Y=00 P=30 S=00
+  S
+  0603    69 02        ADC   #$02
+      A=03 X=00 Y=00 P=30 S=00
+  S
+  0605    8D 09 06     STA   $0609
+      A=03 X=00 Y=00 P=30 S=00
+  S
+  0608    00           BRK
+      A=03 X=00 Y=00 P=30 S=00
+#+end_src
+
+** Step through the code
+:PROPERTIES:
+:REVEAL_EXTRA_ATTR: data-auto-animate
+:END:
+#+ATTR_REVEAL: :data_id bug1
+#+begin_src asm
+  S0600
+  ...
+  S
+  0603    69 02        ADC   #$02
+      A=03 X=00 Y=00 P=30 S=00
+  S
+  0605    8D 09 06     STA   $0609
+      A=03 X=00 Y=00 P=30 S=00
+  S
+  0608    00           BRK
+      A=03 X=00 Y=00 P=30 S=00
+
+  D0609,0609
+  0609 03
+#+end_src
+* Code :noexport:
+
+Some arbitrary code that can be run inline to set values etc. Not output
+
+#+name: set
+#+begin_src elisp
+  (setq org-html-table-caption-above nil)
+  (message "hello")
+#+end_src
