@@ -26,10 +26,7 @@
     (package-install package)))
 
 (require 'org)
-(require 'ox)
-(require 'ox-publish)
 (require 'ox-reveal)
-(require 'htmlize)
 
 ;;; Code:
 
