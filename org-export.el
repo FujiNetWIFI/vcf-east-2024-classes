@@ -7,16 +7,14 @@
 (defvar package-list)
 (defvar package-archive-contents)
 
-(setq package-archives (list))
-(add-to-list 'package-archives '("nongnu" . "https://elpa.nongnu.org/nongnu/") t)
-(add-to-list 'package-archives '("elpa" . "https://elpa.gnu.org/packages/") t)
-(add-to-list 'package-archives '("melpa" . "https://melpa.org/packages/") t)
-(add-to-list 'package-archives '("org" . "https://orgmode.org/elpa/") t)
+(setq package-archives '(("nongnu" . "https://elpa.nongnu.org/nongnu/")
+                         ("elpa" . "https://elpa.gnu.org/packages/")
+                         ("melpa" . "https://melpa.org/packages/")
+                         ("org" . "https://orgmode.org/elpa/")))
 
-(setq package-list
-      '(org
-        ox-reveal
-        htmlize))
+(setq package-list '(org
+                     ox-reveal
+                     htmlize))
 
 (package-initialize)
 
@@ -41,7 +39,7 @@
 (setq user-mail-address "mark.j.fisher@gmail.com")
 
 (setq org-publish-project-alist
-      '(("vcfe-assembler-basics"
+      '(("mf-orgs"
          :base-directory "mark-fisher"
          :publishing-directory "build/mark-fisher/"
          ;; :publishing-function org-html-publish-to-html
@@ -52,11 +50,10 @@
 (org-mode)
 
 ;; start publishing
-(org-publish-project "vcfe-assembler-basics")
+(org-publish-project "mf-orgs")
 
 ;; additional files
-(copy-directory "mark-fisher/images" "build/mark-fisher/images"
-                :parents t)
+(copy-directory "mark-fisher/images" "build/mark-fisher/images" :parents t)
 
 
 (provide 'org-export)
