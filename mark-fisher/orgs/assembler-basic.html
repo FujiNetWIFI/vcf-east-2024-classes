@@ -1,0 +1,386 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8"/>
+<title>8 bit Assembler Basics for Atari</title>
+<meta name="author" content="Mark Fisher"/>
+<meta name="description" content=""/>
+<meta name="keywords" content=""/>
+<style type="text/css">
+.underline { text-decoration: underline; }
+</style>
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.css"/>
+
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/reveal.js/dist/theme/blood.css" id="theme"/>
+
+</head>
+<body>
+<div class="reveal">
+<div class="slides">
+<section id="sec-title-slide"><h1 class="title">8 bit Assembler Basics for Atari</h1><p class="subtitle"></p>
+<h2 class="author">Mark Fisher</h2>
+</section>
+
+
+<section>
+<section id="slide-orgee92d1a">
+<h2 id="orgee92d1a">Atari and the 6502</h2>
+
+<div id="org07e45e8" class="figure">
+<p><img src="images/6502-atari.png" alt="6502-atari.png" width="38%" align="center" />
+</p>
+</div>
+
+</section>
+<section id="slide-org7fb87ad">
+<h3 id="org7fb87ad">8 bit Processor &amp; RAM/ROM</h3>
+
+<div id="orgaa7bf37" class="figure">
+<p><img src="images/memory-layout-horiz.png" alt="memory-layout-horiz.png" width="85%" align="center" />
+</p>
+</div>
+
+<aside class="notes">
+<ul>
+<li>A single accumulator for adding values</li>
+<li>2 general purpose index registers: X, Y</li>
+<li>Stack pointer between $0100 and $01FF
+<ul>
+<li>LIFO stack, init to $FF and decrements as used.</li>
+<li>Can be set using TXS and TSX</li>
+
+</ul></li>
+<li>A single Processor Status Register with 7 flags</li>
+<li>2 bytes addressable memory giving range 64k</li>
+<li>Split into blocks of 16k, BASIC becoming ROM when inserted</li>
+<li>User has free access to "Page 6" at $0600</li>
+<li>All Page Zero is used with Basic enabled</li>
+<li>Special "Zero Page" between $00 and $FF, fewer instructions to use</li>
+
+</ul>
+
+</aside>
+
+</section>
+<section id="slide-org491a3c9">
+<h3 id="org491a3c9">The instruction execution cycle</h3>
+<ul class="fragment roll-in">
+<li>Memory fetched at the current PC</li>
+<li>It is decoded by a special Instruction Register</li>
+<li>Depending on the instruction, it may require more fetches
+<ul>
+<li>Some instructions require no further reads, so take fewer cycles</li>
+<li>Others may involve fetching memory, and interacting with the Registers</li>
+
+</ul></li>
+<li>The PC is incremented by 1 each time, and cycle repeats.</li>
+
+</ul>
+
+<aside class="notes">
+nil
+</aside>
+
+</section>
+</section>
+<section>
+<section id="slide-org5dad685">
+<h2 id="org5dad685">Show me some code!</h2>
+<ul class="fragment roll-in">
+<li><p>
+Instructions, or mnemonics allow us to tell the MPU what to do
+</p>
+<ul>
+<li>Load: LDA, LDX, LDY read memory/values into A/X/Y</li>
+<li>Set: STA, STX, STY store them in memory</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Add/Subtracting values: ADC, SBC</li>
+<li>Registers: CLC, SEC</li>
+
+</ul>
+
+<ul class="fragment roll-in">
+<li>The Carry is an important part of adding</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org5dad685-split">
+
+<ul>
+<li><p>
+Instructions have different modes:
+</p>
+<ul>
+<li>Immediate: loads a direct value (<code>LDA #$01</code>)</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Absolute: uses a 8/16 bit address (<code>LDA $1234</code>)</li>
+
+</ul>
+<ul class="fragment roll-in">
+<li>Indexed: Uses X and Y registers to offset the get/set (<code>LDA $1234,X</code>)</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org739fdfe">
+<h2 id="org739fdfe">Exercise 1: Adding Numbers</h2>
+<ul>
+<li>OSS EASMD Assembler</li>
+<li>Syntax is important!
+<ul>
+<li>Pay attention to line numbers and spaces</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org01ef944" data-auto-animate>
+<h3 id="org01ef944">Initial setup</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="asm1" ><code trim><span style="color: #89b4fa;">0100</span>    .OPT OBJ        <span style="color: #6c7086;">; </span><span style="color: #6c7086;">write to memory</span>
+<span style="color: #89b4fa;">0110</span>    *=$0600         <span style="color: #6c7086;">; </span><span style="color: #6c7086;">page 6 address</span>
+<span style="color: #89b4fa;">0200</span> <span style="color: #cba6f7;">START</span>              <span style="color: #6c7086;">; </span><span style="color: #6c7086;">any name will do</span>
+</code></pre>
+</div>
+
+</section>
+<section id="slide-orgdb81255" data-auto-animate>
+<h3 id="orgdb81255">Using the Accumulator</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="asm1" ><code trim><span style="color: #89b4fa;">0100</span>    .OPT OBJ        <span style="color: #6c7086;">; </span><span style="color: #6c7086;">write to memory</span>
+<span style="color: #89b4fa;">0110</span>    *=$0600         <span style="color: #6c7086;">; </span><span style="color: #6c7086;">page 6 address</span>
+<span style="color: #89b4fa;">0200</span> <span style="color: #cba6f7;">START</span>              <span style="color: #6c7086;">; </span><span style="color: #6c7086;">any name will do</span>
+<span style="color: #89b4fa;">0210</span>    <span style="color: #cba6f7;">CLC</span>             <span style="color: #6c7086;">; </span><span style="color: #6c7086;">Always when starting to add</span>
+<span style="color: #89b4fa;">0220</span>    <span style="color: #cba6f7;">LDA</span>     #$01    <span style="color: #6c7086;">; </span><span style="color: #6c7086;">load value 1 into A (note #)</span>
+<span style="color: #89b4fa;">0230</span>    <span style="color: #cba6f7;">ADC</span>     #$02    <span style="color: #6c7086;">; </span><span style="color: #6c7086;">add the immediate value 2 to it</span>
+<span style="color: #89b4fa;">0240</span>    <span style="color: #cba6f7;">STA</span>     D1      <span style="color: #6c7086;">; </span><span style="color: #6c7086;">Use a label</span>
+<span style="color: #89b4fa;">0250</span>    <span style="color: #cba6f7;">BRK</span>
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org4c05a2b" data-auto-animate>
+<h3 id="org4c05a2b">Finishing the program</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="asm1" ><code trim><span style="color: #89b4fa;">0100</span>    .OPT OBJ        <span style="color: #6c7086;">; </span><span style="color: #6c7086;">write to memory</span>
+<span style="color: #89b4fa;">0110</span>    *=$0600         <span style="color: #6c7086;">; </span><span style="color: #6c7086;">page 6 address</span>
+<span style="color: #89b4fa;">0200</span> <span style="color: #cba6f7;">START</span>              <span style="color: #6c7086;">; </span><span style="color: #6c7086;">any name will do</span>
+<span style="color: #89b4fa;">0210</span>    <span style="color: #cba6f7;">CLC</span>             <span style="color: #6c7086;">; </span><span style="color: #6c7086;">Always when starting to add</span>
+<span style="color: #89b4fa;">0220</span>    <span style="color: #cba6f7;">LDA</span>     #$01    <span style="color: #6c7086;">; </span><span style="color: #6c7086;">load value 1 into A (note #)</span>
+<span style="color: #89b4fa;">0230</span>    <span style="color: #cba6f7;">ADC</span>     #$02    <span style="color: #6c7086;">; </span><span style="color: #6c7086;">add the immediate value 2 to it</span>
+<span style="color: #89b4fa;">0240</span>    <span style="color: #cba6f7;">STA</span>     D1      <span style="color: #6c7086;">; </span><span style="color: #6c7086;">Use a label</span>
+<span style="color: #89b4fa;">0250</span>    <span style="color: #cba6f7;">BRK</span>
+<span style="color: #89b4fa;">0300</span> <span style="color: #cba6f7;">D1</span>                 <span style="color: #6c7086;">; </span><span style="color: #6c7086;">Define the memory to save to</span>
+<span style="color: #89b4fa;">0310</span>    .BYTE   0       <span style="color: #6c7086;">; </span><span style="color: #6c7086;">Allocate 1 byte</span>
+<span style="color: #89b4fa;">0500</span>    .END
+</code></pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgc387983">
+<h2 id="orgc387983">Saving your work</h2>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   ><code trim><span style="color: #89b4fa;">LIST</span> #D2:EX1.ASM
+</code></pre>
+</div>
+
+</section>
+</section>
+<section>
+<section id="slide-orgff66760">
+<h2 id="orgff66760">Assembling your code</h2>
+<p>
+<code>ASM</code> will assemble your code into machine code
+</p>
+
+</section>
+<section id="slide-orgf3e830c">
+<h3 id="orgf3e830c">Bugs 🪲</h3>
+<p>
+If there are errors you'll see a message like:
+</p>
+
+
+<div id="orgd3d4e4f" class="figure">
+<p><img src="images/err-ex1.png" alt="err-ex1.png" width="85%" align="center" />
+</p>
+</div>
+
+</section>
+<section id="slide-orga244f14">
+<h3 id="orga244f14">Success</h3>
+
+<div id="orgb36e100" class="figure">
+<p><img src="images/asm-ex1.png" alt="asm-ex1.png" width="50%" align="center" />
+</p>
+</div>
+
+<ul>
+<li>Output shows code we typed</li>
+<li>Also shows Machine Code bytes
+and addresses: <code>$0600, $0609</code></li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org883113b">
+<h2 id="org883113b">Running the Code</h2>
+<ul class="fragment roll-in">
+<li>Our code exists at $0600</li>
+<li>Use in-built <code>BUG</code> command</li>
+<li>Subcommands:
+<ul>
+<li>L&lt;ADDRESS&gt; - List ASM at ADDRESS</li>
+<li>D&lt;ADDRESS&gt; - Display Memory at ADDRESS</li>
+<li>S[&lt;ADDRESS&gt;] - Step from ADDRESS</li>
+<li>G&lt;ADDRESS&gt; - Go from ADDRESS</li>
+
+</ul></li>
+
+</ul>
+
+</section>
+<section id="slide-org883113b-split">
+
+<div id="org66adb4a" class="figure">
+<p><img src="images/bug-ex1.png" alt="bug-ex1.png" />
+</p>
+</div>
+
+</section>
+<section id="slide-orgb5f32a8" data-auto-animate>
+<h3 id="orgb5f32a8">Step through the code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org42e3f8d" data-auto-animate>
+<h3 id="org42e3f8d">Step through the code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
+<span style="color: #89b4fa;">0600</span>    <span style="color: #cba6f7;">18</span>           CLC
+    <span style="color: #cba6f7;">A=04</span> X=00 Y=00 P=30 S=00
+</code></pre>
+</div>
+
+
+</section>
+<section id="slide-orgef56afb" data-auto-animate>
+<h3 id="orgef56afb">Step through the code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
+<span style="color: #89b4fa;">0600</span>    <span style="color: #cba6f7;">18</span>           CLC
+    <span style="color: #cba6f7;">A=04</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0601</span>    <span style="color: #cba6f7;">A9</span> 01        LDA   #$01
+    <span style="color: #cba6f7;">A=01</span> X=00 Y=00 P=30 S=00
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org02d90d9" data-auto-animate>
+<h3 id="org02d90d9">Step through the code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
+<span style="color: #89b4fa;">0600</span>    <span style="color: #cba6f7;">18</span>           CLC
+    <span style="color: #cba6f7;">A=04</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0601</span>    <span style="color: #cba6f7;">A9</span> 01        LDA   #$01
+    <span style="color: #cba6f7;">A=01</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0603</span>    <span style="color: #cba6f7;">69</span> 02        ADC   #$02
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org7463821" data-auto-animate>
+<h3 id="org7463821">Step through the code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
+<span style="color: #89b4fa;">0600</span>    <span style="color: #cba6f7;">18</span>           CLC
+    <span style="color: #cba6f7;">A=04</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0601</span>    <span style="color: #cba6f7;">A9</span> 01        LDA   #$01
+    <span style="color: #cba6f7;">A=01</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0603</span>    <span style="color: #cba6f7;">69</span> 02        ADC   #$02
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0605</span>    <span style="color: #cba6f7;">8D</span> 09 06     STA   $0609
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0608</span>    <span style="color: #cba6f7;">00</span>           BRK
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+</code></pre>
+</div>
+
+</section>
+<section id="slide-org4b02d92" data-auto-animate>
+<h3 id="org4b02d92">Step through the code</h3>
+<div class="org-src-container">
+
+<pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
+...
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0603</span>    <span style="color: #cba6f7;">69</span> 02        ADC   #$02
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0605</span>    <span style="color: #cba6f7;">8D</span> 09 06     STA   $0609
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+<span style="color: #89b4fa;">S</span>
+<span style="color: #89b4fa;">0608</span>    <span style="color: #cba6f7;">00</span>           BRK
+    <span style="color: #cba6f7;">A=03</span> X=00 Y=00 P=30 S=00
+
+<span style="color: #89b4fa;">D0609</span>,0609
+<span style="color: #89b4fa;">0609</span> <span style="color: #cba6f7;">03</span>
+</code></pre>
+</div>
+</section>
+</section>
+</div>
+</div>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/dist/reveal.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/markdown/markdown.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/zoom/zoom.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/reveal.js/plugin/notes/notes.js"></script>
+
+
+<script>
+// Full list of configuration options available here:
+// https://github.com/hakimel/reveal.js#configuration
+Reveal.initialize({
+plugins: [RevealMarkdown, RevealZoom, RevealNotes],
+width:1200, height:800, margin: 0.1, minScale:0.8, maxScale:1.0
+});
+
+</script>
+</body>
+</html>

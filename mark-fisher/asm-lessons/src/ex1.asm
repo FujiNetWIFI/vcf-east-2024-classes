@@ -1,0 +1,11 @@
+ .OPT OBJ
+ *=$0600
+START
+ CLC
+ LDA    #$01
+ ADC    #$02
+ STA    D1
+ BRK
+D1
+ .BYTE 0
+ .END
