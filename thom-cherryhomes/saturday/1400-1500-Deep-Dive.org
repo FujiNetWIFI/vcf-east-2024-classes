@@ -1,0 +1,138 @@
+#+title: Beginner FujiNet Programming
+#+author: Thomas Cherryhomes
+#+email: thom.cherryhomes@gmail.com
+
+#+begin_note
+Talk Duration: 45 min max.
+Display font is Atari Regular
+#+end_note
+
+* Goals
+
+- Boot into DOS with N:
+
+- Show how to use N: device from BASIC
+
+* Booting a FujiNet N: Handler disk
+
+1. Select apps.irata.online
+2. ... Atari 8-bit
+3. ... DOS
+4. Pick any DOS in the list, we'll use MyDOS
+5. Place it in Drive 1
+6. OPTION to boot.
+
+* Exercise 0: Loading something from a web server
+
+#+begin_src
+READY
+RUN"N:HTTP://FUJINET-TESTING.IRATA.ONLINE/BLACKJACK.BAS"
+#+end_src
+
+- Press RESET to get back to READY
+
+* Exercise 1: Connecting to a TCP socket
+
+#+begin_src
+READY
+OPEN #1,12,2,"N:TCP://NC-SERVER:6502/"
+#+end_src
+
+- 12 means read/write, just like with files
+- 2 means translate UNIX line endings to<->from ATARI
+
+* Exercise 2: Writing to the opened TCP socket
+
+#+begin_src
+READY
+PRINT #1;"HELLO FROM ATARI #x"
+#+end_src
+
+* Exercise 3: Reading from the TCP socket
+
+#+begin_src
+READY
+DIM A$(99)
+INPUT #1;A$
+
+(ATARI will wait for input)
+
+READY
+PRINT A$
+#+end_src
+
+- After INPUT, type something on the PC side, 
+  pressing ENTER will send it
+
+* Exercise 4: Close the TCP socket
+
+#+begin_src
+READY
+CLOSE #1
+#+end_src
+
+* Exercise 5: Ask icanhazip.com for my public IP
+
+#+begin_src
+10 DIM A$(99)
+20 OPEN #1,12,2,"N:HTTP://ICANHAZIP.COM/"
+30 INPUT #1,A$
+40 PRINT "MY PUBLIC IP IS:"
+50 PRINT A$
+60 END
+#+end_src
+
+* Exercise 6: Atari Server
+
+- Open the listening socket
+
+#+begin_src
+10 OPEN #1,12,2,"N:TCP://:6502/"
+20 PRINT "WAITING"
+#+end_src
+
+- Check for connection
+- If no connection (PEEK(748) = 0), check again.
+
+#+begin_src
+30 STATUS #1,A:IF NOT PEEK(748) THEN 30
+#+end_src
+
+- If connection (PEEK(748) = 1), fall through
+- Accept the connection
+- Send our message
+- Close the connection, and go again.
+
+#+begin_src
+40 PRINT "ACCEPTING CONNECTION"
+50 XIO ASC("A"),#1,12,2,"N:"
+60 PRINT "SENDING MESSAGE"
+70 PRINT #1,"HELLO FROM ATARI!"
+80 PRINT "CLOSING CONNECTION."
+90 XIO ASC("c"),#1,12,2,"N:"
+100 GOTO 20
+#+end_src
+
+- Be sure to CLOSE# to close the listening connection
+
+#+begin_src
+READY
+CLOSE #1
+#+end_src
+
+* More information
+
+- The FujiNet Wiki:  
+  https://github.com/FujiNetWIFI/fujinet-firmware/wiki
+
+- SIO (XIO) commands for N:
+  https://github.com/FujiNetWIFI/fujinet-firmware/wiki/SIO-Commands-for-Device-IDs-%2471-to-%2478
+
+- FujiNet-Apps - Example Applications
+  https://github.com/FujiNetWIFI/fujinet-apps
+
+- FujiNet Firmware
+  https://github.com/FujiNetWIFI/fujinet-firmware
+  lib/device/sio/network.cpp
+  lib/network-protocol/*
+
