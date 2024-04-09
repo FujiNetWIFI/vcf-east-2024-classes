@@ -1,0 +1,137 @@
+:REVEAL_PROPERTIES:
+#+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
+#+REVEAL_INIT_OPTIONS: width:1200, height:800, margin: 0.1, minScale:0.8, maxScale:1.0
+#+REVEAL_THEME: moon
+#+REVEAL_HLEVEL: 1
+#+REVEAL_HEAD_PREAMBLE: <meta name="description" content="Bridging Past & Future">
+#+REVEAL_POSTAMBLE: <p> Created by fenrock. </p>
+:END:
+
+#+TITLE: Bridging Past & Future
+#+SUBTITLE: Enhancing Retro Computing with Modern Applications
+#+AUTHOR: Mark Fisher
+#+EMAIL: mark.j.fisher@gmail.com
+#+OPTIONS: toc:nil num:nil timestamp:nil
+#+REVEAL_TITLE_SLIDE: <h2>%t</h2><h3>%s</h3><h5>by %a<br>(%e)</h5>
+
+* FujiNet
+
+** Reignited passion for 8-bit
+
+#+ATTR_REVEAL: :frag (appear)
+- First got Atari 400, then 800XL in the 1980s
+- Mac65 and Action!
+- Still using it at Uni up to 1990
+- Moved onto Amiga, and then PCs, the Atari got lost in house moves
+- Bought an 800XL in September 2020 as lockdown project
+- Maxed it out with U1MB, Sophia 2, SIDE3
+- In October 2020 Discovered Fujinet and bought one, joined discord shortly after
+
+** Open Project
+
+#+ATTR_REVEAL: :frag (appear)
+- Can simply clone the project, make changes, and flash your FN
+- Very easy to contribute, looking for more contributors
+
+** Host software was a bit of a mess
+
+#+ATTR_REVEAL: :frag (appear)
+- Lots of copies of similar code, copied and pasted, bugs repeated
+- Very little rigour, lots of styles
+- Lots of boiler plate, actual functionality difficult to see
+- Difficult to write simple applications
+
+** Needed a common library
+
+#+ATTR_REVEAL: :frag (appear)
+- fujinet-lib born!
+- Initially atari
+- Extended to apple2
+- More to come (c64, spectrum, dragon32, coco, ...)
+
+* Writing a cross platform library
+
+** cc65 - cross platform compiler
+
+#+ATTR_REVEAL: :frag (appear)
+- Supports many 6502 systems
+- Can use PCs to create apps for 8 bit machines
+
+** Testing Library Using BDD6502
+
+#+ATTR_REVEAL: :frag (appear)
+- Project by Martin Piper
+- Testable 6502 code with BDD tests!
+- Java application that uses Symon 6502 emulator
+
+#+REVEAL: split
+
+#+CAPTION: Example Network Test
+#+ATTR_HTML: :width 80% :align center
+[[file:images/tt-bdd6502-1.png]]
+
+** I can test my 6502 library!
+
+#+ATTR_REVEAL: :frag (appear)
+- Most of it is in ASM
+- Caught hundreds of bugs, and allowed me to see the code as test ran.
+- Invaluable as tool for developing library.
+- Yet another layer - Java and JVM emulating 6502
+
+** Atari #1
+
+#+ATTR_REVEAL: :frag (appear)
+- Easy target, I have one!
+- There's an amazin emulator (Altirra)
+- Cobined with with emulated fujinet (fujinet-pc)
+- Iterating over changes is quick
+
+** Apple2 next target
+
+#+ATTR_REVEAL: :frag (appear)
+- No emulator with fujinet support
+- I'd never even seen an Apple2
+- BBC "Beeb" was the school computer of choice
+- Virtually no A2s in UK
+- Using previous examples of a2 applications, I wrote the library blind
+
+#+REVEAL: split
+
+#+ATTR_REVEAL: :frag (appear)
+- How to test it though?
+- Ben (@superbenk) ran my applications on his machine (Sept-Oct 2023)
+- Time lag! Felt like 60s with punch cards
+- Weeks of uploading PO files to discord, wait for them to be tested with screen shots and logs
+- Better solution?
+- Extend AppleWin Emulator to support Fujinet Emulator!
+- Running out of fingers to count layers between the application and where it was running
+- Eric Carr had done some basic changes to AppleWin to support AppKeys for his 5CS program
+
+#+REVEAL: split
+
+#+ATTR_REVEAL: :frag (appear)
+- In comes Oliver Schmidt
+- The guru (or GOAT) of all things A2!
+- Many years of supporting cc65
+- Developing A2RetroNet and A2Pico projects
+- Proposed a mechanism for SmartPort over SLIP (Oct 2023)
+- I implemented it!
+
+* AppleWin Emulator
+
+#+ATTR_REVEAL: :frag (appear)
+- Very functional and extendible Emulator
+- Has a Linux port (rather than running just on WINE)
+- Would allow me to extend fujinet-lib for apple2 and test it without punchcard approach
+- Would give us parity between Atari and Apple2 as supported platforms for virtual FN
+- Just your PC and you can write applications that run on multiple 8 bit machines tested virutally
+
+** Initially supported just fujinet-network
+
+- Could run fujinet specific applications that used fujinet-lib (Dec 2023)
+- Couldn't load 'disks' or treat FujiNet as SmartPort device
+
+** Implementing SmartPort in AppleWin
+
+- 25th Jan 2024 - Added Block Reading/Writing to Emulator
+- FujiNet Config booted!
