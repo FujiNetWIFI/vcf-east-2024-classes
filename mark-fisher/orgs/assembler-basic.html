@@ -23,20 +23,20 @@
 
 
 <section>
-<section id="slide-orgee92d1a">
-<h2 id="orgee92d1a">Atari and the 6502</h2>
+<section id="slide-org1971666">
+<h2 id="org1971666">Atari and the 6502</h2>
 
-<div id="org07e45e8" class="figure">
-<p><img src="images/6502-atari.png" alt="6502-atari.png" width="38%" align="center" />
+<div id="org7254f40" class="figure">
+<p><img src="images/assem1/6502-atari.png" alt="6502-atari.png" width="38%" align="center" />
 </p>
 </div>
 
 </section>
-<section id="slide-org7fb87ad">
-<h3 id="org7fb87ad">8 bit Processor &amp; RAM/ROM</h3>
+<section id="slide-org606d38b">
+<h3 id="org606d38b">8 bit Processor &amp; RAM/ROM</h3>
 
-<div id="orgaa7bf37" class="figure">
-<p><img src="images/memory-layout-horiz.png" alt="memory-layout-horiz.png" width="85%" align="center" />
+<div id="orgd88cad3" class="figure">
+<p><img src="images/assem1/memory-layout-horiz.png" alt="memory-layout-horiz.png" width="85%" align="center" />
 </p>
 </div>
 
@@ -62,18 +62,18 @@
 </aside>
 
 </section>
-<section id="slide-org491a3c9">
-<h3 id="org491a3c9">The instruction execution cycle</h3>
-<ul class="fragment roll-in">
-<li>Memory fetched at the current PC</li>
-<li>It is decoded by a special Instruction Register</li>
-<li>Depending on the instruction, it may require more fetches
+<section id="slide-org59f1a1f">
+<h3 id="org59f1a1f">The instruction execution cycle</h3>
+<ul>
+<li class="fragment appear">Memory fetched at the current PC</li>
+<li class="fragment appear">It is decoded by a special Instruction Register</li>
+<li class="fragment appear">Depending on the instruction, it may require more fetches
 <ul>
 <li>Some instructions require no further reads, so take fewer cycles</li>
 <li>Others may involve fetching memory, and interacting with the Registers</li>
 
 </ul></li>
-<li>The PC is incremented by 1 each time, and cycle repeats.</li>
+<li class="fragment appear">The PC is incremented by 1 each time, and cycle repeats.</li>
 
 </ul>
 
@@ -84,47 +84,30 @@ nil
 </section>
 </section>
 <section>
-<section id="slide-org5dad685">
-<h2 id="org5dad685">Show me some code!</h2>
-<ul class="fragment roll-in">
-<li><p>
-Instructions, or mnemonics allow us to tell the MPU what to do
-</p>
+<section id="slide-org7977a3e">
+<h2 id="org7977a3e">Show me some code!</h2>
 <ul>
-<li>Load: LDA, LDX, LDY read memory/values into A/X/Y</li>
-<li>Set: STA, STX, STY store them in memory</li>
-
-</ul>
-<ul class="fragment roll-in">
-<li>Add/Subtracting values: ADC, SBC</li>
-<li>Registers: CLC, SEC</li>
-
-</ul>
-
-<ul class="fragment roll-in">
-<li>The Carry is an important part of adding</li>
+<li>Instructions, or mnemonics allow us to tell the MPU what to do
+<ul>
+<li class="fragment appear">Load: LDA, LDX, LDY read memory/values into A/X/Y</li>
+<li class="fragment appear">Set: STA, STX, STY store them in memory</li>
+<li class="fragment appear">Add/Subtracting values: ADC, SBC</li>
+<li class="fragment appear">Registers: CLC, SEC</li>
+<li class="fragment appear">The Carry is an important part of adding</li>
 
 </ul></li>
 
 </ul>
 
 </section>
-<section id="slide-org5dad685-split">
+<section id="slide-org7977a3e-split">
 
 <ul>
-<li><p>
-Instructions have different modes:
-</p>
+<li>Instructions have different modes:
 <ul>
-<li>Immediate: loads a direct value (<code>LDA #$01</code>)</li>
-
-</ul>
-<ul class="fragment roll-in">
-<li>Absolute: uses a 8/16 bit address (<code>LDA $1234</code>)</li>
-
-</ul>
-<ul class="fragment roll-in">
-<li>Indexed: Uses X and Y registers to offset the get/set (<code>LDA $1234,X</code>)</li>
+<li class="fragment appear">Immediate: loads a direct value (<code>LDA #$01</code>)</li>
+<li class="fragment appear">Absolute: uses a 8/16 bit address (<code>LDA $1234</code>)</li>
+<li class="fragment appear">Indexed: Uses X and Y registers to offset the get/set (<code>LDA $1234,X</code>)</li>
 
 </ul></li>
 
@@ -133,11 +116,11 @@ Instructions have different modes:
 </section>
 </section>
 <section>
-<section id="slide-org739fdfe">
-<h2 id="org739fdfe">Exercise 1: Adding Numbers</h2>
+<section id="slide-orgb5efc37">
+<h2 id="orgb5efc37">Exercise 1: Adding Numbers</h2>
 <ul>
-<li>OSS EASMD Assembler</li>
-<li>Syntax is important!
+<li class="fragment appear">OSS EASMD Assembler</li>
+<li class="fragment appear">Syntax is important!
 <ul>
 <li>Pay attention to line numbers and spaces</li>
 
@@ -146,8 +129,8 @@ Instructions have different modes:
 </ul>
 
 </section>
-<section id="slide-org01ef944" data-auto-animate>
-<h3 id="org01ef944">Initial setup</h3>
+<section id="slide-org7365f6b" data-auto-animate>
+<h3 id="org7365f6b">Initial setup</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="asm1" ><code trim><span style="color: #89b4fa;">0100</span>    .OPT OBJ        <span style="color: #6c7086;">; </span><span style="color: #6c7086;">write to memory</span>
@@ -157,8 +140,8 @@ Instructions have different modes:
 </div>
 
 </section>
-<section id="slide-orgdb81255" data-auto-animate>
-<h3 id="orgdb81255">Using the Accumulator</h3>
+<section id="slide-org9f6d291" data-auto-animate>
+<h3 id="org9f6d291">Using the Accumulator</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="asm1" ><code trim><span style="color: #89b4fa;">0100</span>    .OPT OBJ        <span style="color: #6c7086;">; </span><span style="color: #6c7086;">write to memory</span>
@@ -173,8 +156,8 @@ Instructions have different modes:
 </div>
 
 </section>
-<section id="slide-org4c05a2b" data-auto-animate>
-<h3 id="org4c05a2b">Finishing the program</h3>
+<section id="slide-org3311231" data-auto-animate>
+<h3 id="org3311231">Finishing the program</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="asm1" ><code trim><span style="color: #89b4fa;">0100</span>    .OPT OBJ        <span style="color: #6c7086;">; </span><span style="color: #6c7086;">write to memory</span>
@@ -194,8 +177,8 @@ Instructions have different modes:
 </section>
 </section>
 <section>
-<section id="slide-orgc387983">
-<h2 id="orgc387983">Saving your work</h2>
+<section id="slide-orga5b11f9">
+<h2 id="orga5b11f9">Saving your work</h2>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   ><code trim><span style="color: #89b4fa;">LIST</span> #D2:EX1.ASM
@@ -205,31 +188,31 @@ Instructions have different modes:
 </section>
 </section>
 <section>
-<section id="slide-orgff66760">
-<h2 id="orgff66760">Assembling your code</h2>
+<section id="slide-orge7fedf6">
+<h2 id="orge7fedf6">Assembling your code</h2>
 <p>
 <code>ASM</code> will assemble your code into machine code
 </p>
 
 </section>
-<section id="slide-orgf3e830c">
-<h3 id="orgf3e830c">Bugs 🪲</h3>
+<section id="slide-org948da41">
+<h3 id="org948da41">Bugs 🪲</h3>
 <p>
 If there are errors you'll see a message like:
 </p>
 
 
-<div id="orgd3d4e4f" class="figure">
-<p><img src="images/err-ex1.png" alt="err-ex1.png" width="85%" align="center" />
+<div id="org382a36f" class="figure">
+<p><img src="images/assem1/err-ex1.png" alt="err-ex1.png" width="85%" align="center" />
 </p>
 </div>
 
 </section>
-<section id="slide-orga244f14">
-<h3 id="orga244f14">Success</h3>
+<section id="slide-orge90e373">
+<h3 id="orge90e373">Success</h3>
 
-<div id="orgb36e100" class="figure">
-<p><img src="images/asm-ex1.png" alt="asm-ex1.png" width="50%" align="center" />
+<div id="orgd083ded" class="figure">
+<p><img src="images/assem1/asm-ex1.png" alt="asm-ex1.png" width="50%" align="center" />
 </p>
 </div>
 
@@ -243,12 +226,12 @@ and addresses: <code>$0600, $0609</code></li>
 </section>
 </section>
 <section>
-<section id="slide-org883113b">
-<h2 id="org883113b">Running the Code</h2>
-<ul class="fragment roll-in">
-<li>Our code exists at $0600</li>
-<li>Use in-built <code>BUG</code> command</li>
-<li>Subcommands:
+<section id="slide-org02e76d5">
+<h2 id="org02e76d5">Running the Code</h2>
+<ul>
+<li class="fragment appear">Our code exists at $0600</li>
+<li class="fragment appear">Use in-built <code>BUG</code> command</li>
+<li class="fragment appear">Subcommands:
 <ul>
 <li>L&lt;ADDRESS&gt; - List ASM at ADDRESS</li>
 <li>D&lt;ADDRESS&gt; - Display Memory at ADDRESS</li>
@@ -260,16 +243,16 @@ and addresses: <code>$0600, $0609</code></li>
 </ul>
 
 </section>
-<section id="slide-org883113b-split">
+<section id="slide-org02e76d5-split">
 
-<div id="org66adb4a" class="figure">
-<p><img src="images/bug-ex1.png" alt="bug-ex1.png" />
+<div id="orgaa97fe5" class="figure">
+<p><img src="images/assem1/bug-ex1.png" alt="bug-ex1.png" />
 </p>
 </div>
 
 </section>
-<section id="slide-orgb5f32a8" data-auto-animate>
-<h3 id="orgb5f32a8">Step through the code</h3>
+<section id="slide-org5ef16d4" data-auto-animate>
+<h3 id="org5ef16d4">Step through the code</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
@@ -277,8 +260,8 @@ and addresses: <code>$0600, $0609</code></li>
 </div>
 
 </section>
-<section id="slide-org42e3f8d" data-auto-animate>
-<h3 id="org42e3f8d">Step through the code</h3>
+<section id="slide-org4bab67e" data-auto-animate>
+<h3 id="org4bab67e">Step through the code</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
@@ -289,8 +272,8 @@ and addresses: <code>$0600, $0609</code></li>
 
 
 </section>
-<section id="slide-orgef56afb" data-auto-animate>
-<h3 id="orgef56afb">Step through the code</h3>
+<section id="slide-org88f7202" data-auto-animate>
+<h3 id="org88f7202">Step through the code</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
@@ -303,8 +286,8 @@ and addresses: <code>$0600, $0609</code></li>
 </div>
 
 </section>
-<section id="slide-org02d90d9" data-auto-animate>
-<h3 id="org02d90d9">Step through the code</h3>
+<section id="slide-orga6e7ef2" data-auto-animate>
+<h3 id="orga6e7ef2">Step through the code</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
@@ -320,8 +303,8 @@ and addresses: <code>$0600, $0609</code></li>
 </div>
 
 </section>
-<section id="slide-org7463821" data-auto-animate>
-<h3 id="org7463821">Step through the code</h3>
+<section id="slide-org00f6563" data-auto-animate>
+<h3 id="org00f6563">Step through the code</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>
@@ -343,8 +326,8 @@ and addresses: <code>$0600, $0609</code></li>
 </div>
 
 </section>
-<section id="slide-org4b02d92" data-auto-animate>
-<h3 id="org4b02d92">Step through the code</h3>
+<section id="slide-orgb8ab98b" data-auto-animate>
+<h3 id="orgb8ab98b">Step through the code</h3>
 <div class="org-src-container">
 
 <pre  class="src src-asm"   data-id="bug1" ><code trim><span style="color: #89b4fa;">S0600</span>

@@ -13,12 +13,12 @@
 * Atari and the 6502
 
 #+ATTR_HTML: :width 38% :align center
-[[file:images/6502-atari.png]]
+[[file:images/assem1/6502-atari.png]]
 
 ** 8 bit Processor & RAM/ROM
 
 #+ATTR_HTML: :width 85% :align center
-[[file:images/memory-layout-horiz.png]]
+[[file:images/assem1/memory-layout-horiz.png]]
 
 #+begin_notes
 + A single accumulator for adding values
@@ -35,7 +35,7 @@
 #+end_notes
 
 ** The instruction execution cycle
-#+ATTR_REVEAL: :frag roll-in
+#+ATTR_REVEAL: :frag (appear)
 + Memory fetched at the current PC
 + It is decoded by a special Instruction Register
 + Depending on the instruction, it may require more fetches
@@ -48,28 +48,25 @@
 
 * Show me some code!
 
-#+ATTR_REVEAL: :frag roll-in
-- Instructions, or mnemonics allow us to tell the MPU what to do
++ Instructions, or mnemonics allow us to tell the MPU what to do
+  #+ATTR_REVEAL: :frag (appear)
   + Load: LDA, LDX, LDY read memory/values into A/X/Y
   + Set: STA, STX, STY store them in memory
-  #+ATTR_REVEAL: :frag roll-in
   + Add/Subtracting values: ADC, SBC
   + Registers: CLC, SEC
-
-  #+ATTR_REVEAL: :frag roll-in
-  - The Carry is an important part of adding
+  + The Carry is an important part of adding
 
 #+REVEAL: split
 
 + Instructions have different modes:
+  #+ATTR_REVEAL: :frag (appear)
   + Immediate: loads a direct value (=LDA #$01=)
-  #+ATTR_REVEAL: :frag roll-in
   + Absolute: uses a 8/16 bit address (=LDA $1234=)
-  #+ATTR_REVEAL: :frag roll-in
   + Indexed: Uses X and Y registers to offset the get/set (=LDA $1234,X=)
 
 * Exercise 1: Adding Numbers
 
+#+ATTR_REVEAL: :frag (appear)
 + OSS EASMD Assembler
 + Syntax is important!
   + Pay attention to line numbers and spaces
@@ -137,19 +134,19 @@
 If there are errors you'll see a message like:
 
 #+ATTR_HTML: :width 85% :align center
-file:images/err-ex1.png
+file:images/assem1/err-ex1.png
 
 ** Success
 
 #+ATTR_HTML: :width 50% :align center
-[[file:images/asm-ex1.png]]
+[[file:images/assem1/asm-ex1.png]]
 
 + Output shows code we typed
 + Also shows Machine Code bytes
   and addresses: =$0600, $0609=
 
 * Running the Code
-#+ATTR_REVEAL: :frag roll-in
+#+ATTR_REVEAL: :frag (appear)
 + Our code exists at $0600
 + Use in-built =BUG= command
 + Subcommands:
@@ -159,7 +156,7 @@ file:images/err-ex1.png
   + G<ADDRESS> - Go from ADDRESS
 
 #+REVEAL: split
-file:images/bug-ex1.png
+file:images/assem1/bug-ex1.png
 
 ** Step through the code
 :PROPERTIES:

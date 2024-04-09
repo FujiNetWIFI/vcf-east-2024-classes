@@ -60,15 +60,16 @@
 ** Testing Library Using BDD6502
 
 #+ATTR_REVEAL: :frag (appear)
-- Project by Martin Piper
-- Testable 6502 code with BDD tests!
+- Cucumber testing framework by Martin Piper
 - Java application that uses Symon 6502 emulator
+- Testable 6502 code with BDD tests!
 
 #+REVEAL: split
 
 #+CAPTION: Example Network Test
 #+ATTR_HTML: :width 80% :align center
-[[file:images/tt-bdd6502-1.png]]
+[[file:images/tech-talk/tt-bdd6502-1.png]]
+
 
 ** I can test my 6502 library!
 
@@ -76,15 +77,30 @@
 - Most of it is in ASM
 - Caught hundreds of bugs, and allowed me to see the code as test ran.
 - Invaluable as tool for developing library.
-- Yet another layer - Java and JVM emulating 6502
+
+#+REVEAL: split
+
+#+CAPTION: Developing On Modern Editor
+#+ATTR_HTML: :width 100% :align center
+[[file:images/tech-talk/dev-fujinet-lib-testing.jpg]]
+
+
+#+REVEAL: split
+
+#+CAPTION: It's all Green!
+#+ATTR_HTML: :width 80% :align center
+[[file:images/tech-talk/dev-fujinet-lib-testing-bdd.png]]
+
 
 ** Atari #1
 
 #+ATTR_REVEAL: :frag (appear)
 - Easy target, I have one!
-- There's an amazin emulator (Altirra)
+- There's an amazing emulator (Altirra)
 - Cobined with with emulated fujinet (fujinet-pc)
 - Iterating over changes is quick
+
+
 
 ** Apple2 next target
 

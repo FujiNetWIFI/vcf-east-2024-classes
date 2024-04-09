@@ -34,13 +34,13 @@
 
 
 <section>
-<section id="slide-org1f3db8f">
-<h2 id="org1f3db8f">FujiNet</h2>
-<div class="outline-text-2" id="text-org1f3db8f">
+<section id="slide-org3c0a6cb">
+<h2 id="org3c0a6cb">FujiNet</h2>
+<div class="outline-text-2" id="text-org3c0a6cb">
 </div>
 </section>
-<section id="slide-org2d42512">
-<h3 id="org2d42512">Reignited passion for 8-bit</h3>
+<section id="slide-org9096d52">
+<h3 id="org9096d52">Reignited passion for 8-bit</h3>
 <ul>
 <li class="fragment appear">First got Atari 400, then 800XL in the 1980s</li>
 <li class="fragment appear">Mac65 and Action!</li>
@@ -53,8 +53,8 @@
 </ul>
 
 </section>
-<section id="slide-orgfae6f9f">
-<h3 id="orgfae6f9f">Open Project</h3>
+<section id="slide-orgbc32549">
+<h3 id="orgbc32549">Open Project</h3>
 <ul>
 <li class="fragment appear">Can simply clone the project, make changes, and flash your FN</li>
 <li class="fragment appear">Very easy to contribute, looking for more contributors</li>
@@ -62,8 +62,8 @@
 </ul>
 
 </section>
-<section id="slide-orgb5ab58b">
-<h3 id="orgb5ab58b">Host software was a bit of a mess</h3>
+<section id="slide-orgeb7d76b">
+<h3 id="orgeb7d76b">Host software was a bit of a mess</h3>
 <ul>
 <li class="fragment appear">Lots of copies of similar code, copied and pasted, bugs repeated</li>
 <li class="fragment appear">Very little rigour, lots of styles</li>
@@ -73,31 +73,26 @@
 </ul>
 
 </section>
-<section id="slide-org56a326f">
-<h3 id="org56a326f">Needed a common library</h3>
+<section id="slide-org804b995">
+<h3 id="org804b995">Needed a common library</h3>
 <ul>
-<li>fujinet-lib born!</li>
-
-</ul>
-
-<ul>
+<li class="fragment appear">fujinet-lib born!</li>
 <li class="fragment appear">Initially atari</li>
 <li class="fragment appear">Extended to apple2</li>
 <li class="fragment appear">More to come (c64, spectrum, dragon32, coco, &#x2026;)</li>
 
 </ul>
 
-
 </section>
 </section>
 <section>
-<section id="slide-org91149c2">
-<h2 id="org91149c2">Writing a cross platform library</h2>
-<div class="outline-text-2" id="text-org91149c2">
+<section id="slide-org3dc42f5">
+<h2 id="org3dc42f5">Writing a cross platform library</h2>
+<div class="outline-text-2" id="text-org3dc42f5">
 </div>
 </section>
-<section id="slide-org75e9170">
-<h3 id="org75e9170">cc65 - cross platform compiler</h3>
+<section id="slide-orgdbdb436">
+<h3 id="orgdbdb436">cc65 - cross platform compiler</h3>
 <ul>
 <li class="fragment appear">Supports many 6502 systems</li>
 <li class="fragment appear">Can use PCs to create apps for 8 bit machines</li>
@@ -105,39 +100,61 @@
 </ul>
 
 </section>
-<section id="slide-org80b5eb1">
-<h3 id="org80b5eb1">Testing Library Using BDD6502</h3>
+<section id="slide-org743d126">
+<h3 id="org743d126">Testing Library Using BDD6502</h3>
 <ul>
-<li class="fragment appear">Project by Martin Piper</li>
-<li class="fragment appear">Testable 6502 code with BDD tests!</li>
+<li class="fragment appear">Cucumber testing framework by Martin Piper</li>
 <li class="fragment appear">Java application that uses Symon 6502 emulator</li>
+<li class="fragment appear">Testable 6502 code with BDD tests!</li>
 
 </ul>
 
 </section>
-<section id="slide-org80b5eb1-split">
+<section id="slide-org743d126-split">
 
 
-<div id="org919816f" class="figure">
-<p><img src="images/tt-bdd6502-1.png" alt="tt-bdd6502-1.png" width="80%" align="center" />
+<div id="org57e82d7" class="figure">
+<p><img src="images/tech-talk/tt-bdd6502-1.png" alt="tt-bdd6502-1.png" width="80%" align="center" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Example Network Test</p>
 </div>
 
+
 </section>
-<section id="slide-org68f3a08">
-<h3 id="org68f3a08">I can test my 6502 library!</h3>
+<section id="slide-orga9c2eab">
+<h3 id="orga9c2eab">I can test my 6502 library!</h3>
 <ul>
 <li class="fragment appear">Most of it is in ASM</li>
 <li class="fragment appear">Caught hundreds of bugs, and allowed me to see the code as test ran.</li>
 <li class="fragment appear">Invaluable as tool for developing library.</li>
-<li class="fragment appear">Yet another layer - Java and JVM emulating 6502</li>
 
 </ul>
 
 </section>
-<section id="slide-orgd15abb3">
-<h3 id="orgd15abb3">Atari #1</h3>
+<section id="slide-orga9c2eab-split">
+
+
+<div id="orgcb0e7cb" class="figure">
+<p><img src="images/tech-talk/dev-fujinet-lib-testing.jpg" alt="dev-fujinet-lib-testing.jpg" width="100%" align="center" />
+</p>
+<p><span class="figure-number">Figure 2: </span>Developing On Modern Editor</p>
+</div>
+
+
+</section>
+<section id="slide-orga9c2eab-split">
+
+
+<div id="org03172f9" class="figure">
+<p><img src="images/tech-talk/dev-fujinet-lib-testing-bdd.png" alt="dev-fujinet-lib-testing-bdd.png" width="80%" align="center" />
+</p>
+<p><span class="figure-number">Figure 3: </span>It's all Green!</p>
+</div>
+
+
+</section>
+<section id="slide-org4c7546c">
+<h3 id="org4c7546c">Atari #1</h3>
 <ul>
 <li class="fragment appear">Easy target, I have one!</li>
 <li class="fragment appear">There's an amazin emulator (Altirra)</li>
@@ -147,8 +164,8 @@
 </ul>
 
 </section>
-<section id="slide-orgb0a2ecc">
-<h3 id="orgb0a2ecc">Apple2 next target</h3>
+<section id="slide-org106facb">
+<h3 id="org106facb">Apple2 next target</h3>
 <ul>
 <li class="fragment appear">No emulator with fujinet support</li>
 <li class="fragment appear">I'd never even seen an Apple2</li>
@@ -159,7 +176,7 @@
 </ul>
 
 </section>
-<section id="slide-orgb0a2ecc-split">
+<section id="slide-org106facb-split">
 
 <ul>
 <li class="fragment appear">How to test it though?</li>
@@ -174,7 +191,7 @@
 </ul>
 
 </section>
-<section id="slide-orgb0a2ecc-split">
+<section id="slide-org106facb-split">
 
 <ul>
 <li class="fragment appear">In comes Oliver Schmidt</li>
@@ -189,8 +206,8 @@
 </section>
 </section>
 <section>
-<section id="slide-orgf6ff6c2">
-<h2 id="orgf6ff6c2">AppleWin Emulator</h2>
+<section id="slide-org6f5a640">
+<h2 id="org6f5a640">AppleWin Emulator</h2>
 <ul>
 <li class="fragment appear">Very functional and extendible Emulator</li>
 <li class="fragment appear">Has a Linux port (rather than running just on WINE)</li>
@@ -201,8 +218,8 @@
 </ul>
 
 </section>
-<section id="slide-org5e83f27">
-<h3 id="org5e83f27">Initially supported just fujinet-network</h3>
+<section id="slide-org4a64652">
+<h3 id="org4a64652">Initially supported just fujinet-network</h3>
 <ul>
 <li>Could run fujinet specific applications that used fujinet-lib (Dec 2023)</li>
 <li>Couldn't load 'disks' or treat FujiNet as SmartPort device</li>
@@ -210,8 +227,8 @@
 </ul>
 
 </section>
-<section id="slide-org741ef62">
-<h3 id="org741ef62">Implementing SmartPort in AppleWin</h3>
+<section id="slide-org437c8db">
+<h3 id="org437c8db">Implementing SmartPort in AppleWin</h3>
 <ul>
 <li>25th Jan 2024 - Added Block Reading/Writing to Emulator</li>
 <li>FujiNet Config booted!</li>
