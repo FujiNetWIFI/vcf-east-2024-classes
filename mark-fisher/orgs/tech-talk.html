@@ -34,47 +34,46 @@
 
 
 <section>
-<section id="slide-org3c0a6cb">
-<h2 id="org3c0a6cb">FujiNet</h2>
-<div class="outline-text-2" id="text-org3c0a6cb">
-</div>
+<section id="slide-org3e468ed" data-background="./images/tech-talk/fujis.jpg" data-background-opacity="0.1">
+<h2 id="org3e468ed">FujiNet</h2>
 </section>
-<section id="slide-org9096d52">
-<h3 id="org9096d52">Reignited passion for 8-bit</h3>
+<section id="slide-org9ff3f5c" data-background="./images/tech-talk/fujis.jpg" data-background-opacity="0.1">
+<h3 id="org9ff3f5c">Reignited passion for 8-bit</h3>
 <ul>
 <li class="fragment appear">First got Atari 400, then 800XL in the 1980s</li>
 <li class="fragment appear">Mac65 and Action!</li>
 <li class="fragment appear">Still using it at Uni up to 1990</li>
-<li class="fragment appear">Moved onto Amiga, and then PCs, the Atari got lost in house moves</li>
-<li class="fragment appear">Bought an 800XL in September 2020 as lockdown project</li>
-<li class="fragment appear">Maxed it out with U1MB, Sophia 2, SIDE3</li>
-<li class="fragment appear">In October 2020 Discovered Fujinet and bought one, joined discord shortly after</li>
+<li class="fragment appear">Amiga, to PCs. Atari got lost in house moves 😠</li>
+<li class="fragment appear">Bought 800XL Sept 2020 as lockdown project</li>
+<li class="fragment appear">Maxed it out: U1MB, Sophia 2, SIDE3</li>
+<li class="fragment appear">Oct 2020 Discovered Fujinet, joined discord</li>
 
 </ul>
 
 </section>
-<section id="slide-orgbc32549">
-<h3 id="orgbc32549">Open Project</h3>
+<section id="slide-orgdafb198" data-background="./images/tech-talk/dev-firmware.jpg" data-background-opacity="0.1">
+<h3 id="orgdafb198">Open Project</h3>
 <ul>
-<li class="fragment appear">Can simply clone the project, make changes, and flash your FN</li>
-<li class="fragment appear">Very easy to contribute, looking for more contributors</li>
+<li class="fragment appear">Firmware easy to update (C++)</li>
+<li class="fragment appear">Clone project, make changes, and flash!</li>
+<li class="fragment appear">Simple to contribute, come help!</li>
 
 </ul>
 
 </section>
-<section id="slide-orgeb7d76b">
-<h3 id="orgeb7d76b">Host software was a bit of a mess</h3>
+<section id="slide-org4f49672" data-background="./images/tech-talk/dev-mastodon.jpg" data-background-opacity="0.1">
+<h3 id="org4f49672">Host software</h3>
 <ul>
-<li class="fragment appear">Lots of copies of similar code, copied and pasted, bugs repeated</li>
-<li class="fragment appear">Very little rigour, lots of styles</li>
-<li class="fragment appear">Lots of boiler plate, actual functionality difficult to see</li>
+<li class="fragment appear">I'm professional developer</li>
+<li class="fragment appear">Host apps didn't meet my standards 🙂</li>
+<li class="fragment appear">Repeated FN code</li>
 <li class="fragment appear">Difficult to write simple applications</li>
 
 </ul>
 
 </section>
-<section id="slide-org804b995">
-<h3 id="org804b995">Needed a common library</h3>
+<section id="slide-org44a7b38" data-background="./images/tech-talk/atari-8bit-lib.webp" data-background-opacity="0.1">
+<h3 id="org44a7b38">Needed a common library</h3>
 <ul>
 <li class="fragment appear">fujinet-lib born!</li>
 <li class="fragment appear">Initially atari</li>
@@ -86,22 +85,33 @@
 </section>
 </section>
 <section>
-<section id="slide-org3dc42f5">
-<h2 id="org3dc42f5">Writing a cross platform library</h2>
-<div class="outline-text-2" id="text-org3dc42f5">
-</div>
-</section>
-<section id="slide-orgdbdb436">
-<h3 id="orgdbdb436">cc65 - cross platform compiler</h3>
+<section id="slide-org9587304" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
+<h2 id="org9587304">Writing a cross platform library</h2>
 <ul>
-<li class="fragment appear">Supports many 6502 systems</li>
-<li class="fragment appear">Can use PCs to create apps for 8 bit machines</li>
+<li>Need framework that:
+<ul>
+<li class="fragment appear">Supports multiple platforms</li>
+<li class="fragment appear">Be reliable and easy to use</li>
+
+</ul></li>
 
 </ul>
 
 </section>
-<section id="slide-org743d126">
-<h3 id="org743d126">Testing Library Using BDD6502</h3>
+<section id="slide-orgd9d8824" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
+<h3 id="orgd9d8824">cc65 - cross platform compiler</h3>
+<ul>
+<li class="fragment appear">Supports many 6502 systems</li>
+<li class="fragment appear">Can use PCs to create apps for 8 bit machines</li>
+<li class="fragment appear">Been around for decades</li>
+<li class="fragment appear">We have some resident experts</li>
+<li class="fragment appear">Can write ASM or C directly</li>
+
+</ul>
+
+</section>
+<section id="slide-org7b44e6d" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
+<h3 id="org7b44e6d">Testing Library Using BDD6502</h3>
 <ul>
 <li class="fragment appear">Cucumber testing framework by Martin Piper</li>
 <li class="fragment appear">Java application that uses Symon 6502 emulator</li>
@@ -110,31 +120,32 @@
 </ul>
 
 </section>
-<section id="slide-org743d126-split">
+<section id="slide-org7b44e6d-split" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
 
 
-<div id="org57e82d7" class="figure">
-<p><img src="images/tech-talk/tt-bdd6502-1.png" alt="tt-bdd6502-1.png" width="80%" align="center" />
+<div id="orgf54461a" class="figure">
+<p><img src="images/tech-talk/tt-bdd6502-1.png" alt="tt-bdd6502-1.png" width="70%" align="center" />
 </p>
 <p><span class="figure-number">Figure 1: </span>Example Network Test</p>
 </div>
 
 
 </section>
-<section id="slide-orga9c2eab">
-<h3 id="orga9c2eab">I can test my 6502 library!</h3>
+<section id="slide-org9fb7b88" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
+<h3 id="org9fb7b88">I can test my 6502 library!</h3>
 <ul>
 <li class="fragment appear">Most of it is in ASM</li>
-<li class="fragment appear">Caught hundreds of bugs, and allowed me to see the code as test ran.</li>
-<li class="fragment appear">Invaluable as tool for developing library.</li>
+<li class="fragment appear">Caught many bugs</li>
+<li class="fragment appear">Watch code as it runs</li>
+<li class="fragment appear">Invaluable for developing library</li>
 
 </ul>
 
 </section>
-<section id="slide-orga9c2eab-split">
+<section id="slide-org9fb7b88-split" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
 
 
-<div id="orgcb0e7cb" class="figure">
+<div id="org96cbd61" class="figure">
 <p><img src="images/tech-talk/dev-fujinet-lib-testing.jpg" alt="dev-fujinet-lib-testing.jpg" width="100%" align="center" />
 </p>
 <p><span class="figure-number">Figure 2: </span>Developing On Modern Editor</p>
@@ -142,10 +153,10 @@
 
 
 </section>
-<section id="slide-orga9c2eab-split">
+<section id="slide-org9fb7b88-split" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
 
 
-<div id="org03172f9" class="figure">
+<div id="orgb4e8b09" class="figure">
 <p><img src="images/tech-talk/dev-fujinet-lib-testing-bdd.png" alt="dev-fujinet-lib-testing-bdd.png" width="80%" align="center" />
 </p>
 <p><span class="figure-number">Figure 3: </span>It's all Green!</p>
@@ -153,85 +164,151 @@
 
 
 </section>
-<section id="slide-org4c7546c">
-<h3 id="org4c7546c">Atari #1</h3>
+<section id="slide-org7f182f0" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
+<h3 id="org7f182f0">First Target: Atari</h3>
 <ul>
 <li class="fragment appear">Easy target, I have one!</li>
-<li class="fragment appear">There's an amazin emulator (Altirra)</li>
-<li class="fragment appear">Cobined with with emulated fujinet (fujinet-pc)</li>
+<li class="fragment appear">There's an amazing emulator (Altirra)</li>
+<li class="fragment appear">Combined with with emulated fujinet
+<ul>
+<li>Amazing work by @apc (fujinet-pc)</li>
+
+</ul></li>
 <li class="fragment appear">Iterating over changes is quick</li>
 
 </ul>
 
+
 </section>
-<section id="slide-org106facb">
-<h3 id="org106facb">Apple2 next target</h3>
+<section id="slide-org04bc366" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
+<h3 id="org04bc366">Second Target: Apple2</h3>
 <ul>
+<li class="fragment appear">Two immediate problems</li>
 <li class="fragment appear">No emulator with fujinet support</li>
-<li class="fragment appear">I'd never even seen an Apple2</li>
-<li class="fragment appear">BBC "Beeb" was the school computer of choice</li>
-<li class="fragment appear">Virtually no A2s in UK</li>
-<li class="fragment appear">Using previous examples of a2 applications, I wrote the library blind</li>
+<li class="fragment appear">I'd never even seen an Apple2
+<ul>
+<li>BBC "Beeb" was the school computer of choice</li>
+
+</ul></li>
+<li class="fragment appear">Virtually no A2s in UK - Expensive imports</li>
+<li class="fragment appear">fujinet-apps had examples</li>
+<li class="fragment appear">I wrote the library with just unit tests</li>
 
 </ul>
 
 </section>
-<section id="slide-org106facb-split">
+<section id="slide-org04bc366-split" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
 
 <ul>
-<li class="fragment appear">How to test it though?</li>
-<li class="fragment appear">Ben (@superbenk) ran my applications on his machine (Sept-Oct 2023)</li>
-<li class="fragment appear">Time lag! Felt like 60s with punch cards</li>
-<li class="fragment appear">Weeks of uploading PO files to discord, wait for them to be tested with screen shots and logs</li>
+<li class="fragment appear">How to test it on real h/w though?</li>
+<li class="fragment appear">Ben (@superbenk) ran my apps (Sept 2023)</li>
+<li class="fragment appear">Felt like 60s with punch cards</li>
+<li class="fragment appear">Screen shots and logs 🙀</li>
 <li class="fragment appear">Better solution?</li>
-<li class="fragment appear">Extend AppleWin Emulator to support Fujinet Emulator!</li>
-<li class="fragment appear">Running out of fingers to count layers between the application and where it was running</li>
-<li class="fragment appear">Eric Carr had done some basic changes to AppleWin to support AppKeys for his 5CS program</li>
+<li class="fragment appear">Get AppleWin Emulator to support Fujinet Emulator!</li>
+<li class="fragment appear">Eric Carr showed the way (appkeys)</li>
+<li class="fragment appear">&#x2026; also come to US and pick one up</li>
 
 </ul>
 
 </section>
-<section id="slide-org106facb-split">
+<section id="slide-org04bc366-split" data-background="./images/tech-talk/8bit-machines.jpg" data-background-opacity="0.1">
 
 <ul>
-<li class="fragment appear">In comes Oliver Schmidt</li>
-<li class="fragment appear">The guru (or GOAT) of all things A2!</li>
+<li class="fragment appear">In comes Oliver Schmidt
+<ul>
+<li class="fragment appear">A2 GOAT, extremely knowledgable</li>
 <li class="fragment appear">Many years of supporting cc65</li>
-<li class="fragment appear">Developing A2RetroNet and A2Pico projects</li>
+<li class="fragment appear">Developing A2RetroNet &amp; A2Pico</li>
+
+</ul></li>
 <li class="fragment appear">Proposed a mechanism for SmartPort over SLIP (Oct 2023)</li>
+<li class="fragment appear">Carefully and slowly explained how A2 IO works</li>
 <li class="fragment appear">I implemented it!</li>
+<li class="fragment appear">&#x2026; while on holiday in France</li>
+<li class="fragment appear">&#x2026; with my wife 🫣</li>
 
 </ul>
 
 </section>
 </section>
 <section>
-<section id="slide-org6f5a640">
-<h2 id="org6f5a640">AppleWin Emulator</h2>
+<section id="slide-org01c4bd6" data-background="./images/tech-talk/jobs_wozniak.webp" data-background-opacity="0.1">
+<h2 id="org01c4bd6">AppleWin Emulator</h2>
 <ul>
-<li class="fragment appear">Very functional and extendible Emulator</li>
-<li class="fragment appear">Has a Linux port (rather than running just on WINE)</li>
-<li class="fragment appear">Would allow me to extend fujinet-lib for apple2 and test it without punchcard approach</li>
-<li class="fragment appear">Would give us parity between Atari and Apple2 as supported platforms for virtual FN</li>
-<li class="fragment appear">Just your PC and you can write applications that run on multiple 8 bit machines tested virutally</li>
+<li class="fragment appear">Functional and extendable Emulator (C++)</li>
+<li class="fragment appear">Linux port (not just on WINE)</li>
+<li class="fragment appear">No more punch cards!</li>
+<li class="fragment appear">Cross platform apps: Atari and Apple2</li>
+<li class="fragment appear">No 8-bit computers needed anymore!</li>
 
 </ul>
 
 </section>
-<section id="slide-org4a64652">
-<h3 id="org4a64652">Initially supported just fujinet-network</h3>
+<section id="slide-org3bb8b6d" data-background="./images/tech-talk/jobs_wozniak.webp" data-background-opacity="0.1">
+<h3 id="org3bb8b6d">First Iteration</h3>
 <ul>
-<li>Could run fujinet specific applications that used fujinet-lib (Dec 2023)</li>
-<li>Couldn't load 'disks' or treat FujiNet as SmartPort device</li>
+<li class="fragment appear">Initially just fujinet apps (Dec 2023)</li>
+<li class="fragment appear">No SmartPort support</li>
+<li class="fragment appear">I didn't understand SmartPort</li>
+<li class="fragment appear">&#x2026; can write apps, so&#x2026; good enough™</li>
 
 </ul>
 
 </section>
-<section id="slide-org437c8db">
-<h3 id="org437c8db">Implementing SmartPort in AppleWin</h3>
+<section id="slide-org1a0cc16" data-background="./images/tech-talk/jobs_wozniak.webp" data-background-opacity="0.1">
+<h3 id="org1a0cc16">Second Iteration</h3>
 <ul>
-<li>25th Jan 2024 - Added Block Reading/Writing to Emulator</li>
-<li>FujiNet Config booted!</li>
+<li class="fragment appear">Need to support SmartPort in AppleWin</li>
+<li class="fragment appear">A lot (more) back and forth with Oliver</li>
+<li class="fragment appear">But eventually&#x2026;</li>
+<li class="fragment appear">25th Jan 2024 - SP Disk support 🎇</li>
+
+</ul>
+
+</section>
+<section id="slide-orgd2920bd">
+<h3 id="orgd2920bd">FujiNet Config booted!</h3>
+
+<div id="org7f0d75d" class="figure">
+<p><img src="images/tech-talk/a2-config1.jpg" alt="a2-config1.jpg" width="70%" align="center" />
+</p>
+<p><span class="figure-number">Figure 4: </span>Config on A2</p>
+</div>
+
+</section>
+<section id="slide-org4e239cc" data-background="./images/tech-talk/iss-apple2.jpg" data-background-opacity="0.1">
+<h3 id="org4e239cc">Apple Apps via FN</h3>
+<ul>
+<li class="fragment appear">Can boot disks over internet</li>
+<li class="fragment appear">Emulator can now run apps via FN</li>
+<li class="fragment appear">Bootable disks from fujinet-lib code</li>
+
+</ul>
+
+</section>
+<section id="slide-org167545d" data-background="./images/tech-talk/iss-apple2.jpg" data-background-opacity="0.1">
+<h3 id="org167545d">Still more to do</h3>
+<ul>
+<li class="fragment appear">CP/M, Clock not yet supported</li>
+<li class="fragment appear">Come join us!</li>
+
+</ul>
+
+</section>
+</section>
+<section>
+<section id="slide-org56897e4">
+<h2 id="org56897e4">Final Musings</h2>
+<ul>
+<li class="fragment appear">What a journey!</li>
+<li class="fragment appear">Extremely satisfying to produce apps using modern s/w</li>
+<li class="fragment appear">Never thought as 12 year old I'd be still doing Atari in my 50s</li>
+<li class="fragment appear">You can try your curiosity out without buying hardware</li>
+<li class="fragment appear">@superbenk has VM can download with everything setup on it</li>
+<li class="fragment appear">We're just starting</li>
+<li class="fragment appear">Come join us (have I said that already?)</li>
+<li class="fragment appear">Come see us at the FujiNet stand</li>
 
 </ul>
 </section>
@@ -245,7 +322,7 @@
 // Full list of configuration options available here:
 // https://github.com/hakimel/reveal.js#configuration
 Reveal.initialize({
-width:1200, height:800, margin: 0.1, minScale:0.8, maxScale:1.0,
+width:1400, height:900, margin: 0.05, minScale:1.0, maxScale:2.0,
 
 // Optional libraries used to extend on reveal.js
 dependencies: [

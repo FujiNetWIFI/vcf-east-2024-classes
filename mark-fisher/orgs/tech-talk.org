@@ -1,6 +1,6 @@
 :REVEAL_PROPERTIES:
 #+REVEAL_ROOT: https://cdn.jsdelivr.net/npm/reveal.js
-#+REVEAL_INIT_OPTIONS: width:1200, height:800, margin: 0.1, minScale:0.8, maxScale:1.0
+#+REVEAL_INIT_OPTIONS: width:1400, height:900, margin: 0.05, minScale:1.0, maxScale:2.0
 #+REVEAL_THEME: moon
 #+REVEAL_HLEVEL: 1
 #+REVEAL_HEAD_PREAMBLE: <meta name="description" content="Bridging Past & Future">
@@ -15,33 +15,54 @@
 #+REVEAL_TITLE_SLIDE: <h2>%t</h2><h3>%s</h3><h5>by %a<br>(%e)</h5>
 
 * FujiNet
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/fujis.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 ** Reignited passion for 8-bit
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/fujis.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
 - First got Atari 400, then 800XL in the 1980s
 - Mac65 and Action!
 - Still using it at Uni up to 1990
-- Moved onto Amiga, and then PCs, the Atari got lost in house moves
-- Bought an 800XL in September 2020 as lockdown project
-- Maxed it out with U1MB, Sophia 2, SIDE3
-- In October 2020 Discovered Fujinet and bought one, joined discord shortly after
+- Amiga, to PCs. Atari got lost in house moves 😠
+- Bought 800XL Sept 2020 as lockdown project
+- Maxed it out: U1MB, Sophia 2, SIDE3
+- Oct 2020 Discovered Fujinet, joined discord
 
 ** Open Project
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/dev-firmware.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
-- Can simply clone the project, make changes, and flash your FN
-- Very easy to contribute, looking for more contributors
+- Firmware easy to update (C++)
+- Clone project, make changes, and flash!
+- Simple to contribute, come help!
 
-** Host software was a bit of a mess
+** Host software
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/dev-mastodon.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
-- Lots of copies of similar code, copied and pasted, bugs repeated
-- Very little rigour, lots of styles
-- Lots of boiler plate, actual functionality difficult to see
+- I'm professional developer
+- Host apps didn't meet my standards 🙂
+- Repeated FN code
 - Difficult to write simple applications
 
 ** Needed a common library
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/atari-8bit-lib.webp
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
 - fujinet-lib born!
@@ -50,14 +71,34 @@
 - More to come (c64, spectrum, dragon32, coco, ...)
 
 * Writing a cross platform library
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/8bit-machines.jpg
+:reveal_background_opacity: 0.1
+:END:
+
+- Need framework that:
+  #+ATTR_REVEAL: :frag (appear)
+  + Supports multiple platforms
+  + Be reliable and easy to use
 
 ** cc65 - cross platform compiler
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/8bit-machines.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
 - Supports many 6502 systems
 - Can use PCs to create apps for 8 bit machines
+- Been around for decades
+- We have some resident experts
+- Can write ASM or C directly
 
 ** Testing Library Using BDD6502
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/8bit-machines.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
 - Cucumber testing framework by Martin Piper
@@ -67,16 +108,21 @@
 #+REVEAL: split
 
 #+CAPTION: Example Network Test
-#+ATTR_HTML: :width 80% :align center
+#+ATTR_HTML: :width 70% :align center
 [[file:images/tech-talk/tt-bdd6502-1.png]]
 
 
 ** I can test my 6502 library!
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/8bit-machines.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
 - Most of it is in ASM
-- Caught hundreds of bugs, and allowed me to see the code as test ran.
-- Invaluable as tool for developing library.
+- Caught many bugs
+- Watch code as it runs
+- Invaluable for developing library
 
 #+REVEAL: split
 
@@ -92,62 +138,133 @@
 [[file:images/tech-talk/dev-fujinet-lib-testing-bdd.png]]
 
 
-** Atari #1
+** First Target: Atari
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/8bit-machines.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
 - Easy target, I have one!
 - There's an amazing emulator (Altirra)
-- Cobined with with emulated fujinet (fujinet-pc)
+- Combined with with emulated fujinet
+  - Amazing work by @apc (fujinet-pc)
 - Iterating over changes is quick
 
 
-
-** Apple2 next target
+** Second Target: Apple2
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/8bit-machines.jpg
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
+- Two immediate problems
 - No emulator with fujinet support
 - I'd never even seen an Apple2
-- BBC "Beeb" was the school computer of choice
-- Virtually no A2s in UK
-- Using previous examples of a2 applications, I wrote the library blind
+  - BBC "Beeb" was the school computer of choice
+- Virtually no A2s in UK - Expensive imports
+- fujinet-apps had examples
+- I wrote the library with just unit tests
 
 #+REVEAL: split
 
 #+ATTR_REVEAL: :frag (appear)
-- How to test it though?
-- Ben (@superbenk) ran my applications on his machine (Sept-Oct 2023)
-- Time lag! Felt like 60s with punch cards
-- Weeks of uploading PO files to discord, wait for them to be tested with screen shots and logs
+- How to test it on real h/w though?
+- Ben (@superbenk) ran my apps (Sept 2023)
+- Felt like 60s with punch cards
+- Screen shots and logs 🙀
 - Better solution?
-- Extend AppleWin Emulator to support Fujinet Emulator!
-- Running out of fingers to count layers between the application and where it was running
-- Eric Carr had done some basic changes to AppleWin to support AppKeys for his 5CS program
+- Get AppleWin Emulator to support Fujinet Emulator!
+- Eric Carr showed the way (appkeys)
+- ... also come to US and pick one up
 
 #+REVEAL: split
 
 #+ATTR_REVEAL: :frag (appear)
 - In comes Oliver Schmidt
-- The guru (or GOAT) of all things A2!
-- Many years of supporting cc65
-- Developing A2RetroNet and A2Pico projects
+  #+ATTR_REVEAL: :frag (appear)
+  - A2 GOAT, extremely knowledgable
+  - Many years of supporting cc65
+  - Developing A2RetroNet & A2Pico
 - Proposed a mechanism for SmartPort over SLIP (Oct 2023)
+- Carefully and slowly explained how A2 IO works
 - I implemented it!
+- ... while on holiday in France
+- ... with my wife 🫣
 
 * AppleWin Emulator
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/jobs_wozniak.webp
+:reveal_background_opacity: 0.1
+:END:
 
 #+ATTR_REVEAL: :frag (appear)
-- Very functional and extendible Emulator
-- Has a Linux port (rather than running just on WINE)
-- Would allow me to extend fujinet-lib for apple2 and test it without punchcard approach
-- Would give us parity between Atari and Apple2 as supported platforms for virtual FN
-- Just your PC and you can write applications that run on multiple 8 bit machines tested virutally
+- Functional and extendable Emulator (C++)
+- Linux port (not just on WINE)
+- No more punch cards!
+- Cross platform apps: Atari and Apple2
+- No 8-bit computers needed anymore!
 
-** Initially supported just fujinet-network
+** First Iteration
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/jobs_wozniak.webp
+:reveal_background_opacity: 0.1
+:END:
 
-- Could run fujinet specific applications that used fujinet-lib (Dec 2023)
-- Couldn't load 'disks' or treat FujiNet as SmartPort device
+#+ATTR_REVEAL: :frag (appear)
+- Initially just fujinet apps (Dec 2023)
+- No SmartPort support
+- I didn't understand SmartPort
+- ... can write apps, so... good enough™
 
-** Implementing SmartPort in AppleWin
+** Second Iteration
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/jobs_wozniak.webp
+:reveal_background_opacity: 0.1
+:END:
 
-- 25th Jan 2024 - Added Block Reading/Writing to Emulator
-- FujiNet Config booted!
+#+ATTR_REVEAL: :frag (appear)
+- Need to support SmartPort in AppleWin
+- A lot (more) back and forth with Oliver
+- But eventually...
+- 25th Jan 2024 - SP Disk support 🎇
+
+** FujiNet Config booted!
+
+#+CAPTION: Config on A2
+#+ATTR_HTML: :width 70% :align center
+[[file:images/tech-talk/a2-config1.jpg]]
+
+** Apple Apps via FN
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/iss-apple2.jpg
+:reveal_background_opacity: 0.1
+:END:
+
+#+ATTR_REVEAL: :frag (appear)
+- Can boot disks over internet
+- Emulator can now run apps via FN
+- Bootable disks from fujinet-lib code
+
+** Still more to do
+:PROPERTIES:
+:reveal_background: ./images/tech-talk/iss-apple2.jpg
+:reveal_background_opacity: 0.1
+:END:
+
+#+ATTR_REVEAL: :frag (appear)
+- CP/M, Clock not yet supported
+- Come join us!
+
+* Final Musings
+
+#+ATTR_REVEAL: :frag (appear)
+- What a journey!
+- Extremely satisfying to produce apps using modern s/w
+- Never thought as 12 year old I'd be still doing Atari in my 50s
+- You can try your curiosity out without buying hardware
+- @superbenk has VM can download with everything setup on it
+- We're just starting
+- Come join us (have I said that already?)
+- Come see us at the FujiNet stand
